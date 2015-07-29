@@ -1,0 +1,30 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| HDHR Assistant Config
+|--------------------------------------------------------------------------
+|
+| Not all environments are the same. Here you can change several options
+| which may be unique to your environment.
+|
+*/
+
+return [
+
+	// The IP address of the HDHomeRun on the local network
+	'hdhr' => '192.168.1.205',
+
+	// The path relative to the root these scripts are running from
+	'path' => '/hdhr-assistant/',
+
+	// The name of the xmltv.xml file
+	'xmltv' => 'xmltv.xml',
+
+	// The value in hours to shift the EPG time
+	'epgshift' => 0,
+
+	// Whether or not to show DRM protected channels
+	'showdrm' => false,
+
+];
