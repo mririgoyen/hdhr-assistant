@@ -23,7 +23,7 @@ return [
     // Example:
     // 1 NBC => National Broadcasting Company
 
-	'3 WOFL' => "FOX (WOFL)",
+    '3 WOFL' => "FOX (WOFL)",
     '4 WESH' => "NBC (WESH)",
 
 ];

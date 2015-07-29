@@ -22,7 +22,7 @@ return [
     // Example:
     // 25 => Rock and Roll
 
-	'400' => "Hit List",
-	'401' => "Pop Rhythmic",
+    '400' => "Hit List",
+    '401' => "Pop Rhythmic",
 
 ];

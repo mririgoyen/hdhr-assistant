@@ -81,7 +81,7 @@
      * @return void
      */
     private function parseXMLTVChannels() {
-    	$xml = new DOMDocument();
+        $xml = new DOMDocument();
         if($xml->load('http://'.$_SERVER['SERVER_ADDR'].$this->config['path'].'/epg/'.$this->config['xmltv'])) {
             $channels = $xml->getElementsByTagName('channel');
             foreach($channels as $channel) {
@@ -117,12 +117,12 @@
             foreach($this->channels as $c) {
                 // Only show protected channels if configured to
                 if(($this->config['showdrm'] === false && $c->DRM != 1) || $this->config['showdrm'] === true) {
-                	// Check to see if this channel is a radio station
-                	if(is_array($this->overrides['radio']) && array_key_exists($c->GuideNumber, $this->overrides['radio'])) {
-                		// Output the radio station
-                		echo '#EXTINF:-1 tvg-name="'.$c->GuideNumber.' '.$c->GuideName.'" tvg-logo="'.$c->GuideName.'" radio="true", '.$this->overrides['radio'][$c->GuideNumber]."\n";
-	                    echo $c->URL."\n";
-                	} else {
+                    // Check to see if this channel is a radio station
+                    if(is_array($this->overrides['radio']) && array_key_exists($c->GuideNumber, $this->overrides['radio'])) {
+                        // Output the radio station
+                        echo '#EXTINF:-1 tvg-name="'.$c->GuideNumber.' '.$c->GuideName.'" tvg-logo="'.$c->GuideName.'" radio="true", '.$this->overrides['radio'][$c->GuideNumber]."\n";
+                        echo $c->URL."\n";
+                    } else {
                         // Set the channel name
                         $chname = $c->GuideName;
 
@@ -131,10 +131,10 @@
                             $chname = $this->overrides['channels'][$c->GuideNumber.' '.$c->GuideName];
                         }
 
-                		// Output the channel
-	                    echo '#EXTINF:-1 '.(array_key_exists($c->GuideNumber, $this->epgmap) ? 'tvg-id="'.$this->epgmap[$c->GuideNumber].'" ' : '').'tvg-name="'.$c->GuideNumber.' '.$c->GuideName.'" tvg-logo="'.$c->GuideName.'", '.$chname."\n";
-	                    echo $c->URL."\n";
-                	}
+                        // Output the channel
+                        echo '#EXTINF:-1 '.(array_key_exists($c->GuideNumber, $this->epgmap) ? 'tvg-id="'.$this->epgmap[$c->GuideNumber].'" ' : '').'tvg-name="'.$c->GuideNumber.' '.$c->GuideName.'" tvg-logo="'.$c->GuideName.'", '.$chname."\n";
+                        echo $c->URL."\n";
+                    }
                 }
             }
         }

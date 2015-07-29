@@ -12,19 +12,19 @@
 
 return [
 
-	// The IP address of the HDHomeRun on the local network
-	'hdhr' => '192.168.1.205',
+    // The IP address of the HDHomeRun on the local network
+    'hdhr' => '192.168.1.205',
 
-	// The path relative to the root these scripts are running from
-	'path' => '/hdhr-assistant/',
+    // The path relative to the root these scripts are running from
+    'path' => '/hdhr-assistant/',
 
-	// The name of the xmltv.xml file
-	'xmltv' => 'xmltv.xml',
+    // The name of the xmltv.xml file
+    'xmltv' => 'xmltv.xml',
 
-	// The value in hours to shift the EPG time
-	'epgshift' => 0,
+    // The value in hours to shift the EPG time
+    'epgshift' => 0,
 
-	// Whether or not to show DRM protected channels
-	'showdrm' => false,
+    // Whether or not to show DRM protected channels
+    'showdrm' => false,
 
 ];
