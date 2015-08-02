@@ -9,7 +9,7 @@
 | whatever reason. You could use it to hide the SD versions of channels,
 | spanish-speaking channels, etc.
 |
-| IMPORTANT! Make sure you rename this file to `radio.php` to activate it!
+| IMPORTANT! Make sure you rename this file to `exclude.php` to activate it!
 |
 */
 
