@@ -15,7 +15,7 @@
      * Create all the storage arrays
      */
     protected $config    = array();
-    protected $overrides = array();
+    public $overrides = array();
     public $channels     = array();
     public $epgmap       = array();
 
