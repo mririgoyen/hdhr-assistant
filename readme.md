@@ -45,8 +45,9 @@ How to Use
  3. **Optional:** There are two other configuration files:
     - `radio-sample.xml` - Defines channels which are radio stations.
     - `channels-sample.xml` - Allows you to override channel names that come from the EPG.
+    - `exclude-sample.xml` - Allows you to exclude channels from being included.
 
-   Both of these files contain instructions and examples at the top of the file. Be sure to rename the files without the `-sample` for them to take affect!
+   The config files contain instructions and examples at the top of the file. Be sure to rename the files without the `-sample` for them to take affect!
 
 How to Get EPG Data
 -------------------
