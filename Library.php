@@ -29,6 +29,7 @@
         $this->config                = include('config/config.php');
         $this->overrides['radio']    = include('config/radio.php');
         $this->overrides['channels'] = include('config/channels.php');
+        $this->overrides['exclude']  = include('config/exclude.php');
 
         // Check the HDHR connection and get the lineup URL from the device
         if(filter_var($this->config['hdhr'], FILTER_VALIDATE_IP)) {
@@ -115,6 +116,12 @@
 
             // Loop through and output channels
             foreach($this->channels as $c) {
+                // Check to see if this channel is excluded
+                if(is_array($this->overrides['exclude']) && in_array($c->GuideNumber.' '.$c->GuideName, $this->overrides['exclude'])) {
+                    // Excluded, skip to the next one
+                    continue;
+                }
+
                 // Only show protected channels if configured to
                 if(($this->config['showdrm'] === false && $c->DRM != 1) || $this->config['showdrm'] === true) {
                     // Check to see if this channel is a radio station

@@ -1,5 +1,6 @@
 config/radio.php
 config/channels.php
+config/exclude.php
 epg/xmltv.xml
 epg/cache/
 logos/
