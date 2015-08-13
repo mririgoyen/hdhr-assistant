@@ -40,14 +40,14 @@ How to Use
     - `path` - The path where you put these files. The default path is `/hdhr-assistant/`
     - `xmltv` - The name of the `xmltv.xml` file you generate with the Zap2XML PERL script.
     - `epgshift` - The value in hours to offset your EPG data. You most likely will not need to change this.
-    - `showdrm` - Whether or not to include DRM protected channels in the listing. Copy-protected channels cannot be playing in Kodi, so they are hidden by default.
+    - `showdrm` - Whether or not to include DRM protected channels in the listing. Most copy-protected channels cannot be played in Kodi, so they are hidden by default.
 
- 3. **Optional:** There are two other configuration files:
+ 3. **Optional:** There are three other configuration files:
     - `radio-sample.xml` - Defines channels which are radio stations.
     - `channels-sample.xml` - Allows you to override channel names that come from the EPG.
     - `exclude-sample.xml` - Allows you to exclude channels from being included.
 
-   The config files contain instructions and examples at the top of the file. Be sure to rename the files without the `-sample` for them to take affect!
+   The config files contain instructions and examples at the top of the file. Be sure to rename the files without the `-sample` for them to take effect!
 
 How to Get EPG Data
 -------------------
@@ -70,7 +70,7 @@ How to Get EPG Data
 
     - It is important to note that your paths might be different if you have more than one volume or if you copied this repository to a different location.
 
-    - You the email address and password you signed up with on Zap2It's website.
+    - Use the email address and password you signed up with on Zap2It's website.
 
  8. Click OK.
 
