@@ -26,13 +26,16 @@ Requirements
  - HDHomeRun device on your local network
  - [Kodi 15+](http://kodi.tv/)
  - [IPTV Simple Client PVR add-on](http://kodi.wiki/view/Add-on:IPTV_Simple_Client)
- - Perl (To run the [Zap2XML](http://zap2xml.awardspace.info/) script, provided in this repository)
+ - [Zap2XML](http://zap2xml.awardspace.info/)
+ - Perl (To run the Zap2XML script)
 
 How to Use
 ----------
 
  1. Download this repository and place it in the root of your Synology web share in a directory called `hdhr-assistant`.
     - You can name the directory something else or even put it out of the root, just make sure you change the `config.php` file to reflect exactly where you put the files.
+ 
+ 2. Download Zap2XML from http://zap2xml.awardspace.info/. Place the zap2xml.pl file in an `epg` directory.
 
  2. Browse into `config` directory and edit the `config.php` file.
 
