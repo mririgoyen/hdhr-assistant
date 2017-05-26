@@ -91,10 +91,10 @@
 
                 // Get the channel number
                 $dn = $channel->getElementsByTagName('display-name');
-                $cnum = $dn->item(2)->nodeValue;
 
                 // Add to the EPG mapping array
-                $this->epgmap[$cnum] = $cid;
+                $this->epgmap[$dn->item(2)->nodeValue] = $cid;
+                $this->epgmap[$dn->item(1)->nodeValue] = $cid;
             }
         } else {
             // Couldn't find the xmltv.xml file in the epg directory
@@ -116,6 +116,10 @@
 
             // Loop through and output channels
             foreach($this->channels as $c) {
+				// Get station name from mess returned by HDHomerun:
+				if (preg_match('#(.+?)([\d]{3,4})#i', $c->GuideName, $matches))
+					$c->GuideName = empty($matches[1]) ? $c->GuideName : trim($matches[1]);
+				
                 // Check to see if this channel is excluded
                 if(is_array($this->overrides['exclude']) && in_array($c->GuideNumber.' '.$c->GuideName, $this->overrides['exclude'])) {
                     // Excluded, skip to the next one
@@ -139,7 +143,7 @@
                         }
 
                         // Output the channel
-                        echo '#EXTINF:-1 '.(array_key_exists($c->GuideNumber, $this->epgmap) ? 'tvg-id="'.$this->epgmap[$c->GuideNumber].'" ' : '').'tvg-name="'.$c->GuideNumber.' '.$c->GuideName.'" tvg-logo="'.$c->GuideName.'", '.$chname."\n";
+                        echo '#EXTINF:-1 '.(array_key_exists($c->GuideName, $this->epgmap) ? 'tvg-id="'.$this->epgmap[$c->GuideName].'" ' : (array_key_exists($c->GuideNumber, $this->epgmap) ? 'tvg-id="'.$this->epgmap[$c->GuideNumber].'" ' : '')).'tvg-chno="'.$c->GuideNumber.'" tvg-name="'.$c->GuideName.'" tvg-logo="'.$c->GuideName.'", '.$c->GuideNumber.' '.$chname."\n";
                         echo $c->URL."\n";
                     }
                 }
