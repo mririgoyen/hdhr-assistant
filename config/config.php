@@ -27,4 +27,8 @@ return [
     // Whether or not to show DRM protected channels
     'showdrm' => false,
 
+    // Whether or not to use FFMPEG to provide service and provider strings:
+    // *** WARNING: DO NOT CHANGE IF FFMPEG IS NOT INSTALLED!!! ***
+    'use_ffmpeg' => false,
+
 ];

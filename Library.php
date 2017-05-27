@@ -166,6 +166,11 @@
                             $chname = $this->overrides['channels'][$c->GuideNumber.' '.$c->GuideName];
                         }
 
+                        // Add service and provider to stream if configured to do so:
+						if($this->config['use_ffmpeg'] !== false) {
+                        	$c->URL = 'pipe:///usr/bin/ffmpeg -loglevel fatal -i '.$c->URL.' -vcodec copy -acodec copy -metadata service_provider='.$c->GuideName.' -metadata service_name='.$c->GuideName.' -f mpegts -tune zerolatency pipe:1';
+                        }
+
                         // Output the channel
                         echo '#EXTINF:-1 '.(array_key_exists($c->GuideName, $this->epgmap) ? 'tvg-id="'.$this->epgmap[$c->GuideName].'" ' : (array_key_exists($c->GuideNumber, $this->epgmap) ? 'tvg-id="'.$this->epgmap[$c->GuideNumber].'" ' : '')).'tvg-chno="'.$c->GuideNumber.'" tvg-name="'.$c->GuideName.'" tvg-logo="'.$c->GuideName.'", '.$c->GuideNumber.' '.$chname."\n";
                         echo $c->URL."\n";
