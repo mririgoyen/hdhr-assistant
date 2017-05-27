@@ -30,6 +30,7 @@
         $this->overrides['radio']    = include('config/radio.php');
         $this->overrides['channels'] = include('config/channels.php');
         $this->overrides['exclude']  = include('config/exclude.php');
+        $this->overrides['remap']  = include('config/remap_channels.php');
 
         // Check the HDHR connection and get the lineup URL from the device
         if(filter_var($this->config['hdhr'], FILTER_VALIDATE_IP)) {
@@ -75,6 +76,29 @@
             // Throw an exception to prevent any other code from running
             die('Unable to find the `lineup.json` file. Please check the path.');
         }
+
+		// Do we have any channel swaps to perform?
+		if (is_array($this->overrides['remap']))
+		{
+			// Assign guide numbers as key for channel array:
+			$channels = array();
+			foreach ($this->channels as $c) {
+				$channels[$c->GuideNumber] = $c;
+			}
+
+			// Swap the channels as requested in the configuration file:
+			foreach ($this->overrides['remap'] as $c1 => $c2) {
+				if (isset($channels[$c1]) && isset($channels[$c2])) {
+					$channels[$c1]->GuideNumber = $c2;
+					$channels[$c2]->GuideNumber = $c1;
+					$tmp = $channels[$c1];
+					$channels[$c1] = $channels[$c2];
+					$channels[$c2] = $tmp;
+				}
+			}
+			ksort($channels);
+			$this->channels = $channels;
+		}
     }
 
     /**
