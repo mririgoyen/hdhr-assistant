@@ -13,7 +13,7 @@
 return [
 
     // The IP address of the HDHomeRun on the local network
-    'hdhr' => '192.168.1.205',
+    'hdhr' => '192.168.1.104',
 
     // The path relative to the root these scripts are running from
     'path' => '/hdhr-assistant/',

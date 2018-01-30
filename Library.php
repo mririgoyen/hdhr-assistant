@@ -26,11 +26,11 @@
     public function __construct()
     {
         // Load the configuration files
-        $this->config                = include('config/config.php');
-        $this->overrides['radio']    = include('config/radio.php');
-        $this->overrides['channels'] = include('config/channels.php');
-        $this->overrides['exclude']  = include('config/exclude.php');
-        $this->overrides['remap']  = include('config/remap_channels.php');
+        $this->config                = @include('config/config.php');
+        $this->overrides['radio']    = @include('config/radio.php');
+        $this->overrides['channels'] = @include('config/channels.php');
+        $this->overrides['exclude']  = @include('config/exclude.php');
+        $this->overrides['remap']  = @include('config/remap_channels.php');
 
         // Check the HDHR connection and get the lineup URL from the device
         if(filter_var($this->config['hdhr'], FILTER_VALIDATE_IP)) {
@@ -149,6 +149,8 @@
                     // Excluded, skip to the next one
                     continue;
                 }
+                if (!isset($c->DRM))
+					$c->DRM = 0;
 
                 // Only show protected channels if configured to
                 if(($this->config['showdrm'] === false && $c->DRM != 1) || $this->config['showdrm'] === true) {
