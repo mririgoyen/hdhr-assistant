@@ -18,6 +18,7 @@
     public $overrides = array();
     public $channels     = array();
     public $epgmap       = array();
+    public $host_addr    = '';
 
     /**
      * Verify a connection to the HDHomeRun
@@ -26,10 +27,10 @@
     public function __construct()
     {
         // Load the configuration files
-        $this->config                = include('config/config.php');
-        $this->overrides['radio']    = include('config/radio.php');
-        $this->overrides['channels'] = include('config/channels.php');
-        $this->overrides['exclude']  = include('config/exclude.php');
+        $this->config                = @include('config/config.php');
+        $this->overrides['radio']    = @include('config/radio.php');
+        $this->overrides['channels'] = @include('config/channels.php');
+        $this->overrides['exclude']  = @include('config/exclude.php');
 
         // Check the HDHR connection and get the lineup URL from the device
         if(filter_var($this->config['hdhr'], FILTER_VALIDATE_IP)) {
@@ -83,7 +84,9 @@
      */
     private function parseXMLTVChannels() {
         $xml = new DOMDocument();
-        if($xml->load('http://'.$_SERVER['SERVER_ADDR'].$this->config['path'].'/epg/'.$this->config['xmltv'])) {
+        $this->config['path'] = trim($this->config['path'], '/');
+        $this->host_addr = 'http://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].'/'.$this->config['path'];
+        if($xml->load($this->host_addr.'/epg/'.$this->config['xmltv'])) {
             $channels = $xml->getElementsByTagName('channel');
             foreach($channels as $channel) {
                 // Get the Zap2It channel ID
@@ -123,11 +126,11 @@
                 }
 
                 // Only show protected channels if configured to
-                if(($this->config['showdrm'] === false && $c->DRM != 1) || $this->config['showdrm'] === true) {
+                if(($this->config['showdrm'] === false && empty($c->DRM)) || $this->config['showdrm'] === true) {
                     // Check to see if this channel is a radio station
                     if(is_array($this->overrides['radio']) && array_key_exists($c->GuideNumber, $this->overrides['radio'])) {
                         // Output the radio station
-                        echo '#EXTINF:-1 tvg-name="'.$c->GuideNumber.' '.$c->GuideName.'" tvg-logo="'.$c->GuideName.'" radio="true", '.$this->overrides['radio'][$c->GuideNumber]."\n";
+                        echo '#EXTINF:-1 channel-id="'.$c->GuideNumber.'" tvg-name="'.$c->GuideNumber.' '.$c->GuideName.'" tvg-logo="'.$this->host_addr.'/logos/'.$c->GuideName.'.png" radio="true", '.$this->overrides['radio'][$c->GuideNumber]."\n";
                         echo $c->URL."\n";
                     } else {
                         // Set the channel name
@@ -139,7 +142,7 @@
                         }
 
                         // Output the channel
-                        echo '#EXTINF:-1 '.(array_key_exists($c->GuideNumber, $this->epgmap) ? 'tvg-id="'.$this->epgmap[$c->GuideNumber].'" ' : '').'tvg-name="'.$c->GuideNumber.' '.$c->GuideName.'" tvg-logo="'.$c->GuideName.'", '.$chname."\n";
+                        echo '#EXTINF:-1 channel-id="'.$c->GuideNumber.'" '.(array_key_exists($c->GuideNumber, $this->epgmap) ? 'tvg-id="'.$this->epgmap[$c->GuideNumber].'" ' : '').'tvg-name="'.$c->GuideNumber.' '.$c->GuideName.'" tvg-logo="'.$this->host_addr.'/logos/'.$c->GuideNumber.'.png", '.$chname."\n";
                         echo $c->URL."\n";
                     }
                 }
